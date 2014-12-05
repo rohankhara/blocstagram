@@ -41,7 +41,7 @@
         
     {
         
-        NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
+        NSString *imageName = [NSString stringWithFormat:@"%d.jpg",i];
         UIImage *image = [UIImage imageNamed:imageName];
         if (image)
             
@@ -94,7 +94,7 @@
     if (!imageView)
         
     {
-    
+        
         imageView = [UIImageView new];
         imageView.contentMode = UIViewContentModeScaleToFill;
         
@@ -103,35 +103,53 @@
         
         imageView.tag = imageViewTag;
         [cell.contentView addSubview:imageView];
-    
+        
     }
-    
-    
-    
     
     return cell;
 }
 
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+{
+    // return 300;
+    // UIImage *image = self.images[indexPath.row];
+    // return image.size.height;
+    
+    UIImage *image = self.images[indexPath.row];
+    return ((image.size.height / image.size.width) * CGRectGetWidth(self.view.frame));
+}
+
+
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        // Delete the row from the data source
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.images delete:indexPath];
+    }
+    
+   /* else if (editingStyle == UITableViewCellEditingStyleInsert)
+        
+    {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }*/
+}
+
 
 /*
  // Override to support rearranging the table view.

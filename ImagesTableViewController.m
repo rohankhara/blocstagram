@@ -140,7 +140,8 @@
         // Delete the row from the data source
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        [self.images delete:indexPath];
+        [self.images removeObject:indexPath];
+        
     }
     
    /* else if (editingStyle == UITableViewCellEditingStyleInsert)

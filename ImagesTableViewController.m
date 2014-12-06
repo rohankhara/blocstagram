@@ -106,6 +106,9 @@
         
     }
     
+    UIImage *image = self.images[indexPath.row];
+    imageView.image = image;
+    
     return cell;
 }
 
@@ -139,8 +142,10 @@
     {
         // Delete the row from the data source
         
+        [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        [self.images removeObject:indexPath];
+        [self.images removeObjectAtIndex:indexPath.row];
+        [tableView endUpdates];
         
     }
     

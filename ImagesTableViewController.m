@@ -7,9 +7,15 @@
 //
 
 #import "ImagesTableViewController.h"
+#import "DataSource.h"
+#import "Media.h"
+#import "User.h"
+#import "Comment.h"
+
+
 
 @interface ImagesTableViewController ()
-@property (nonatomic, strong) NSMutableArray *images;
+// @property (nonatomic, strong) NSMutableArray *images;
 
 @end
 
@@ -24,7 +30,7 @@
         
     {
         
-        self.images = [NSMutableArray array];
+   //     self.images = [NSMutableArray array];
         
     }
     
@@ -37,7 +43,7 @@
 {
     [super viewDidLoad];
     
-    for (int i=1; i<=10; i++)
+  /*  for (int i=1; i<=10; i++)
         
     {
         
@@ -50,7 +56,7 @@
             
         }
         
-    }
+    } */
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
     
@@ -63,7 +69,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -79,7 +86,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 
 {
-    return self.images.count;
+  //  return self.images.count;
+    // return [DataSource sharedInstance].mediaItems.count;
+    return [self items].count;
     
 }
 
@@ -106,11 +115,16 @@
         
     }
     
-    UIImage *image = self.images[indexPath.row];
-    imageView.image = image;
+   // UIImage *image = self.images[indexPath.row];
+    // imageView.image = image;
+    
+    Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    imageView.image = item.image;
     
     return cell;
 }
+
+
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,7 +134,11 @@
     // UIImage *image = self.images[indexPath.row];
     // return image.size.height;
     
-    UIImage *image = self.images[indexPath.row];
+    // UIImage *image = self.images[indexPath.row];
+    
+    Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    
+    UIImage *image = item.image;
     return ((image.size.height / image.size.width) * CGRectGetWidth(self.view.frame));
 }
 
@@ -134,6 +152,15 @@
 }
 
 
+-(NSArray *) items
+
+{
+
+    NSArray *array1 = [DataSource sharedInstance].mediaItems;
+    return array1;
+
+}
+
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,16 +171,19 @@
         
         [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        [self.images removeObjectAtIndex:indexPath.row];
-        [tableView endUpdates];
         
+        NSMutableArray *array2 = [DataSource sharedInstance].mediaItems;
+        [array2 removeObjectAtIndex:indexPath.row];
+        //[self.images removeObjectAtIndex:indexPath.row];
+        [tableView endUpdates];
+    
     }
     
-   /* else if (editingStyle == UITableViewCellEditingStyleInsert)
+    /* else if (editingStyle == UITableViewCellEditingStyleInsert)
         
     {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }*/
+    } */
 }
 
 

@@ -118,7 +118,11 @@
    // UIImage *image = self.images[indexPath.row];
     // imageView.image = image;
     
-    Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    // Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    
+    NSArray *array2 = [self items];
+    Media *item = array2[indexPath.row];
+    
     imageView.image = item.image;
     
     return cell;
@@ -136,8 +140,10 @@
     
     // UIImage *image = self.images[indexPath.row];
     
-    Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
     
+    // Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    NSArray *array2 = [self items];
+    Media *item = array2[indexPath.row];
     UIImage *image = item.image;
     return ((image.size.height / image.size.width) * CGRectGetWidth(self.view.frame));
 }
@@ -172,8 +178,13 @@
         [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
-        NSMutableArray *array2 = [DataSource sharedInstance].mediaItems;
-        [array2 removeObjectAtIndex:indexPath.row];
+         // NSMutableArray *array2 = [DataSource sharedInstance].mediaItems;
+        // [array2 removeObjectAtIndex:indexPath.row];
+        // [[DataSource sharedInstance].mediaItems removeObjectAtIndex: indexPath.row];
+        
+        [[DataSource sharedInstance].mediaItems removeObjectAtIndex:indexPath.row];
+        //[DataSource sharedInstance].mediaItems = array2;
+        
         //[self.images removeObjectAtIndex:indexPath.row];
         [tableView endUpdates];
     

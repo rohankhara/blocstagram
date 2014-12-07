@@ -13,7 +13,7 @@
 
 @interface DataSource()
 
-@property (nonatomic, strong) NSArray *mediaItems;
+// @property (nonatomic, strong) NSArray *mediaItems;
 
 @end
 
